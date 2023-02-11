@@ -2,11 +2,12 @@ package main
 
 import (
 	"encoding/binary"
+	"os"
 	"log"
 )
 
-var TCP_ADDR = ":10014"
-var UDP_ADDR = ":10014"
+var TCP_ADDR = os.Args[1]
+var UDP_ADDR = os.Args[2]
 var TCP_READ_TIMEOUT_SEC = 10
 var UDP_READ_TIMEOUT_SEC = 10
 
