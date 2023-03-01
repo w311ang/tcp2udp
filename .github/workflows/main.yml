@@ -20,10 +20,12 @@ jobs:
         go-version: '1.16.x'
 
     - name: Build for ${{ matrix.os }} ${{ matrix.arch }}
-      run: GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go build -o tcp2udp_${{ matrix.os }}_${{ matrix.arch }} .
+      run: |
+        export FILENAME="tcp2udp_${{ matrix.os }}_${{ matrix.arch }}$([[ '${{ matrix.os }}' == 'windows-latest' ]] && echo .exe)"
+        GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go build -o $FILENAME .
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: tcp2udp_${{ matrix.os }}_${{ matrix.arch }}${{ matrix.os == 'windows-latest' ? '.exe' : '' }}
-        path: ./tcp2udp_${{ matrix.os }}_${{ matrix.arch }}${{ matrix.os == 'windows-latest' ? '.exe' : '' }}
+        name: ${{ env.FILENAME }}
+        path: ./${{ env.FILENAME }}
