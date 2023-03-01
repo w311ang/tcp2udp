@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest]
-        arch: [386, amd64, arm64]
+        arch: [amd64, arm64]
 
     steps:
     - name: Checkout code
