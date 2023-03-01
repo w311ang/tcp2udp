@@ -22,7 +22,7 @@ jobs:
     - name: Build for ${{ matrix.os }} ${{ matrix.arch }}
       run: |
         export FILENAME="tcp2udp_${{ matrix.os }}_${{ matrix.arch }}$([[ '${{ matrix.os }}' == 'windows-latest' ]] && echo .exe)"
-        go build -o $FILENAME .
+        GO111MODULES=auto go build -o $FILENAME .
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
