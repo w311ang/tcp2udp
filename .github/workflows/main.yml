@@ -20,9 +20,11 @@ jobs:
         go-version: '1.16.x'
 
     - name: Build for ${{ matrix.os }} ${{ matrix.arch }}
+      env:
+        GO111MODULE: auto
       run: |
         export FILENAME="tcp2udp_${{ matrix.os }}_${{ matrix.arch }}$([[ '${{ matrix.os }}' == 'windows-latest' ]] && echo .exe)"
-        GO111MODULES=auto go build -o $FILENAME .
+        go build -o $FILENAME .
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
