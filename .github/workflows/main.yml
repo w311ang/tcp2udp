@@ -23,11 +23,10 @@ jobs:
       env:
         GO111MODULE: auto
       run: |
-        export FILENAME="tcp2udp_${{ matrix.os }}_${{ matrix.arch }}$([[ '${{ matrix.os }}' == 'windows-latest' ]] && echo .exe)"
-        go build -o $FILENAME .
+        go build -o tcp2udp_${{ matrix.os }}_${{ matrix.arch }} .
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: ${{ env.FILENAME }}
-        path: ./${{ env.FILENAME }}
+        name: tcp2udp_${{ matrix.os }}_${{ matrix.arch }}
+        path: ./tcp2udp_${{ matrix.os }}_${{ matrix.arch }}
