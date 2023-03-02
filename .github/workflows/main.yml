@@ -5,6 +5,8 @@ on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+    env:
+      FILENAME: tcp2udp_${{ runner.os }}_${{ matrix.arch }}
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest]
@@ -19,14 +21,14 @@ jobs:
       with:
         go-version: '1.16.x'
 
-    - name: Build for ${{ matrix.os }} ${{ matrix.arch }}
+    - name: Build for ${{ runner.os }} ${{ matrix.arch }}
       env:
         GO111MODULE: auto
       run: |
-        go build -o tcp2udp_${{ matrix.os }}_${{ matrix.arch }} .
+        go build -o ${{ env.FILENAME }} .
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: tcp2udp_${{ matrix.os }}_${{ matrix.arch }}
-        path: ./tcp2udp_${{ matrix.os }}_${{ matrix.arch }}
+        name: ${{ env.FILENAME }}
+        path: ./${{ env.FILENAME }}
