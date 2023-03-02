@@ -25,10 +25,10 @@ jobs:
         GO111MODULE: auto
         CGO_ENABLED: ${{ matrix.cgo }}
       run: |
-        go build -o tcp2udp_${{ runner.os }}_${{ matrix.arch }} .
+        go build -o tcp2udp_${{ runner.os }}_${{ matrix.arch }}_${{ matrix.cgo }} .
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: tcp2udp_${{ runner.os }}_${{ matrix.arch }}
-        path: ./tcp2udp_${{ runner.os }}_${{ matrix.arch }}
+        name: tcp2udp_${{ runner.os }}_${{ matrix.arch }}_${{ matrix.cgo }}
+        path: ./tcp2udp_${{ runner.os }}_${{ matrix.arch }}_${{ matrix.cgo }}
