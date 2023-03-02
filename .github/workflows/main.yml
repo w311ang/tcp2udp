@@ -9,6 +9,7 @@ jobs:
       matrix:
         os: [windows-latest, ubuntu-latest]
         arch: [amd64, arm64]
+        cgo: [0, 1]
 
     steps:
     - name: Checkout code
@@ -22,6 +23,7 @@ jobs:
     - name: Build for ${{ runner.os }} ${{ matrix.arch }}
       env:
         GO111MODULE: auto
+        CGO_ENABLED: ${{ matrix.cgo }}
       run: |
         go build -o tcp2udp_${{ runner.os }}_${{ matrix.arch }} .
 
